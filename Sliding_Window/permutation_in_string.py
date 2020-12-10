@@ -5,41 +5,50 @@
 
 def permutation_in_string(st, pattern):
 
-    # Use a dictionary to keep track of frequency
-    # of characters in the pattern
+    # Use a hash table to keep track of frequencies
+    # of characters in pattern
     freq = {}
-    for c in pattern:
-        if c not in freq:
-            freq[c] = 0
-        freq[c] += 1
+    for p in pattern:
+        if p not in freq:
+            freq[p] = 0
+        freq[p] += 1
 
-    # Index i to track window start
-    i = 0
 
-    # Track number of matched characters
+    # Use match to track number of characters matched
+    # if match == len(freq), then return True
     match = 0
 
-    # Index j to track window end
+    # Use i as index to track beginning of window
+    i = 0
+
+    # Use j as index to track end of window
     for j in range(len(st)):
 
         if st[j] in freq:
             freq[st[j]] -= 1
 
+            # mark 1 letter matched if frequency is 0
             if freq[st[j]] == 0:
                 match += 1
 
         if match == len(freq):
             return True
-        
-        if (j - i + 1) > len(pattern):
-            i += 1
 
+        # shrink window if greater than length
+        if (j - i + 1) >= len(pattern):
+
+            # remember to add back to frequency map
+            # if st[i] is indeed in the map
             if st[i] in freq:
                 if freq[st[i]] == 0:
                     match -= 1
+
                 freq[st[i]] += 1
 
+            i += 1
+
     return False
+    
 
 if __name__ == "__main__":
 
