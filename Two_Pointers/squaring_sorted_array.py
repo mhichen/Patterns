@@ -3,6 +3,8 @@
 # Given a sorted array, create a new array
 # containing square of all the numbers of
 # the input array in the sorted order
+# Time Complexity: O(N)
+# Space Complexity: O(N)
 def square_array(arr):
 
     res = [0] * len(arr)
