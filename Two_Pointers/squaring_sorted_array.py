@@ -38,7 +38,45 @@ def square_array(arr):
 
 
     return res
+
+
+# Use two pointers to iterate the array - one
+# will iterate over starting from the smallest number
+# (which could be negative),
+# while the other will start with the largest number
+# The larger of the two will be added to the resulting array
+# Time complexity: O(N)
+# Space complexity: O(N)
+def square_array_2(arr):
+
+    n = len(arr)
     
+    res = [0] * n
+
+    # index to keep track of where we have filled
+    # the resulting array
+    k = n - 1
+
+    l = 0
+    r = n - 1
+
+    while l <= r:
+
+        l2 = arr[l] * arr[l]
+        r2 = arr[r] * arr[r]
+
+        if l2 > r2:
+            res[k] = l2
+            l += 1
+        else:
+            res[k] = r2
+            r -= 1
+
+        k -= 1
+
+    return res
+            
+
 
 if __name__ == "__main__":
 
@@ -46,9 +84,11 @@ if __name__ == "__main__":
     
     # Expected output = [0, 1, 4, 4, 9]
     print(square_array(input_arr))
+    print(square_array_2(input_arr))
 
 
     input_arr = [-3, -1, 0, 1, 2]
 
     # Expected output = [0, 1, 1, 4, 9]
     print(square_array(input_arr))
+    print(square_array_2(input_arr))
