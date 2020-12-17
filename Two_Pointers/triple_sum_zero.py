@@ -48,6 +48,13 @@ def target_pair(arr, target, l):
             l += 1
             r -= 1
 
+            # Need to skip element if it's the same
+            # to avoid duplicate triplets
+            while l < r and arr[l] == arr[l - 1]:
+                l += 1
+            while l < r and arr[r] == arr[r + 1]:
+                r -= 1
+
     return res
                                   
 
