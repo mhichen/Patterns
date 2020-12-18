@@ -24,8 +24,9 @@ def triplet_sum_close_to_target(arr, target):
     # Keep track of which is the smallest difference
     # from target
     min_diff = np.inf
-    
-    for i in range(len(arr)):
+
+    # No need to iterate to the very last number
+    for i in range(len(arr) - 2):
 
         curr_sum = target_pair(arr, target, i)
         curr_diff = abs(curr_sum - target)
