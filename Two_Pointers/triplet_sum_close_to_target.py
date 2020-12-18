@@ -12,7 +12,7 @@ import numpy as np
 # here we keep track of the closest and smallest sum
 
 # Time complexity: O(N^2)
-# Space complexity: O(1)
+# Space complexity: O(N) - for sorting
 def triplet_sum_close_to_target(arr, target):
 
     # First, sort the array
@@ -28,50 +28,35 @@ def triplet_sum_close_to_target(arr, target):
     # No need to iterate to the very last number
     for i in range(len(arr) - 2):
 
-        curr_sum = target_pair(arr, target, i)
-        curr_diff = abs(curr_sum - target)
+        # left and right pointers
+        l = i + 1
+        r = len(arr) - 1
 
-        if curr_diff <= min_diff:
+        while l < r:
 
-            if curr_diff == min_diff and curr_sum > min_sum:
-                continue
+            curr_sum = arr[i] + arr[l] + arr[r]
 
-            min_diff = curr_diff
-            min_sum = curr_sum
+            curr_diff = abs(curr_sum - target)
 
-    return min_sum
-
-
-def target_pair(arr, target, i):
-
-    l = i + 1
-    r = len(arr) - 1
-
-    min_sum = np.inf
-    min_diff = np.inf
-
-    while l < r:
-
-        curr_sum = arr[i] + arr[l] + arr[r]
-
-        curr_diff = abs(curr_sum - target)
-
-        if curr_diff <= min_diff:
-
-            if curr_diff == min_diff and curr_sum > min_sum:
-                continue
+            if curr_sum > target:
+                r -= 1
+            elif curr_sum < target:
+                l += 1
+            else:
+                # Case for finding exact match
+                return min_sum
             
-            min_diff = curr_diff
-            min_sum = curr_sum
+            if curr_diff <= min_diff:
 
-        if curr_sum > target:
-            r -= 1
-        elif curr_sum < target:
-            l += 1
-        else:
-            return min_sum
+                if curr_diff == min_diff and curr_sum > min_sum:
+                    continue
+            
+                min_diff = curr_diff
+                min_sum = curr_sum
+
 
     return min_sum
+
         
         
 
